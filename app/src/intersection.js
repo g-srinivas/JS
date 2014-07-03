@@ -1,6 +1,6 @@
 var intersection = function(){
     var res =_intersect(arguments[0], arguments[1]);
-    if(!res.length)
+    if(isEmpty(res))
         return [];
     each(rest(arguments, 2), function(arr){
         res = _intersect(res, arr);
