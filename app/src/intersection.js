@@ -1,7 +1,8 @@
 var intersection = function(){
-    var res = clone(arguments[0]);
-
-     each(arguments, function(arr){
+    var res =_intersect(arguments[0], arguments[1]);
+    if(!res.length)
+        return [];
+    each(rest(arguments, 2), function(arr){
         res = _intersect(res, arr);
     });
 
@@ -15,11 +16,3 @@ var intersection = function(){
     }
     return res;
 };
-
-function clone(arr1){
-    var res = [];
-    each(arr1, function(ele){
-        res.push(ele);
-    });
-    return res;
-}
