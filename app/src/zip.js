@@ -1,20 +1,19 @@
 var zip = function() {
     var res = [];
-    for(var i = 0; i< maxlength(arguments); ++i){
+    var maxlength = reduce(arguments, 0,  function(acc, arr){
+        return max(acc, arr.length);
+    });
+    var args = arguments;
+    repeat(maxlength, function(i){
         var element = [];
-        each(arguments, function(obj){
+        each(args, function(obj){
             element.push(obj[i]);
         });
         res.push(element);
-    }
+    });
     return res;
 };
 
-function maxlength(arrays){
-    var maxln =  arrays[0].length;
-    each(arrays, function(arr){
-        if(arr.length > maxln)
-            maxln = arr.length;
-    });
-    return maxln;
+function max(x, y){
+    return x > y ? x : y;
 }
