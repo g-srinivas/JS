@@ -1,12 +1,9 @@
-var flatten = function(array) {
-    var res = [];
-    function _flatten(res, arr){
-        each(arr, function(obj) {
+var flatten = function(arr,  res) {
+    res = res || [];
+     each(arr, function(obj) {
             if(Array.isArray(obj))
-                _flatten(res, obj);
+                flatten(obj, res);
             else res.push(obj);
-        });
-        return res;
-    }
-    return _flatten(res, array);
+     });
+    return res;
 };
