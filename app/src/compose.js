@@ -2,8 +2,9 @@ var compose = function() {
     var funcs = reverse(arguments);
     return function() {
         var res = first(funcs).apply(null, rest(arguments, 0));
-        each(rest(funcs), function(func) {
-            res = func.call(null, res);
+
+        reduce(rest(funcs), res, function(res, func) {
+            return (func(res));
         });
         return res;
     }
