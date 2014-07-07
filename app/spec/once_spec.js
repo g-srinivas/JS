@@ -1,20 +1,14 @@
-describe('once', function(){
-    function add(x, y) {
-        return x + y;
-    }
-    function returnSame(name) {
-        return name;
-    }
-    var oneTime = once(add);
-    oneTime(3, 4);
-    oneTime(4, 5);
+describe('once', function() {
     it('should return 7', function() {
-        expect(oneTime(10, 11)).toEqual(7);
+        var i = 0;
+        function inc() {
+            i++;
+        }
+        var f = once(inc);
+        f();
+        f();
+        f();
+        expect(i).toEqual(i);
     });
 
-    it('should return same name ', function() {
-        var f = once(returnSame);
-        f('srinu');
-        expect(f('ram')).toEqual('srinu');
-    });
 });
