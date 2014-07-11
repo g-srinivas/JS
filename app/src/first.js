@@ -1,5 +1,5 @@
-var first = function(arr, n){
-    if(isNaN(n))
+var first = function(arr, n) {
+    if(isUndefined(n))
         return arr[0];
     var upto = n;
     if(n < 0)
@@ -8,8 +8,8 @@ var first = function(arr, n){
         upto = arr.length;
 
     var res = [];
-    for(var i = 0; i < upto ; ++i){
+    each(range(upto), function(i) {
         res.push(arr[i]);
-    }
+    });
     return res;
-}
+};

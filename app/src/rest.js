@@ -1,12 +1,10 @@
 var rest = function(arr, index){
-    var res = [];
-    if(index >= arr.length)
-        return res;
-    var from  = (isNaN(index) ? 1 : index);
+    var from  = (isUndefined(index) ? 1 : index);
     if(from < 0)
         from = index + arr.length;
-    for(var i = from; i < arr.length; ++i){
+    var res = [];
+    each(range(from, arr.length), function(i) {
         res.push(arr[i]);
-    }
+    });
     return res;
 };
