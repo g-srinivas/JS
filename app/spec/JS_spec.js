@@ -6,7 +6,12 @@ describe('JS(args)', function() {
         var map = function(x) {
             return x * 2;
         };
-        expect(JS([1, 2, 3]).filter(filter).map(map).value()).toEqual([2, 6]);
-        expect(JS.filter([1, 2, 3, 4], filter)).toEqual([1, 3]);
+
+        expect(JS([1, 2, 3])
+               .filter(filter)
+               .map(map).value()).toEqual([2, 6]);
+        expect(JS([1, 2, 3])
+              .reduce(0, function(x, y) { return x + y;})
+              .value()).toEqual(6);
     });
 });
