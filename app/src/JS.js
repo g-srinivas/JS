@@ -46,30 +46,34 @@ JS.map = function(arr, func) {
 };
 
 
-JS.getAllFunctionNames = function(obj){
-var keys = Object.keys(obj);
-   return JS.reduce(keys, [], function(res, key) {
-        if(typeof obj[key] === 'function' ) {
-            res.push(key);
-        }
-       return res;
-    });
+JS.functions = function(obj) {
+    return JS.filter(
+        Object.keys(obj),
+        function(key) { return typeof obj[key] ==='function';});
 };
-JS.concat = function(result, arr2){
-   JS.each(arr2, function(ele){
+
+JS.concat = function(result, arr2) {
+   JS.each(arr2, function(ele) {
         result.push(ele);
     });
     return result;
 };
 
 JS.addChainingSupport = function(obj) {
-    JS.each(JS.getAllFunctionNames(JS), function(name) {
+    JS.each(JS.functions(JS), function(name) {
         obj.prototype[name] = function() {
             this._value =
                 JS[name].apply(null,JS.concat([this._value], arguments));
             return this;
         };
     });
+};
+
+JS.extend = function(destination, source) {
+    for(var prop in source) {
+        if(JS.has(source, prop))
+            destination[prop] = source[prop];
+    }
 };
 
 JS.addChainingSupport(JS);
