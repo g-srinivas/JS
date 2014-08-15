@@ -60,20 +60,26 @@ JS.concat = function(result, arr2) {
 };
 
 JS.addChainingSupport = function(obj) {
-    JS.each(JS.functions(JS), function(name) {
-        obj.prototype[name] = function() {
+    JS.each(JS.functions(obj), function(name) {
+        var temp = {};
+        temp[name] =  function() {
             this._value =
-                JS[name].apply(null,JS.concat([this._value], arguments));
+            JS[name].apply(null,JS.concat([this._value], arguments));
             return this;
         };
+        JS.mixin(temp, JS.prototype);
     });
 };
 
-JS.extend = function(destination, source) {
-    for(var prop in source) {
-        if(JS.has(source, prop))
-            destination[prop] = source[prop];
+JS.mixin = function(source, target) {
+    JS.each(Object.keys(source), function(key) {
+        if(JS.has(source, key))
+            target[key] = source[key];
+    });
+    if(target === JS) {
+        JS.addChainingSupport(source);
     }
 };
+
 
 JS.addChainingSupport(JS);
